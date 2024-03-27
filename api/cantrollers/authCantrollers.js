@@ -1,7 +1,8 @@
 import User from '../models/usermodel.js'
 import bcrypt from 'bcrypt'
+import { errorHandler } from '../utills/error.js';
 
-export const signup=async(req,res)=>{
+export const signup=async(req,res,next)=>{
     try{
 
     
@@ -13,7 +14,7 @@ export const signup=async(req,res)=>{
     }
     catch(err)
     {
-        res.status(500).json(err.message);
+       next(errorHandler(501,"some mistake happened"));
     }
     
 }

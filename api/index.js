@@ -11,6 +11,21 @@ mongoose.connect(process.env.mongourl).then(()=>{console.log("database is connec
  app.use(express.json());
 app.use('/api/auth',authRoutes);
 
+app.use((err,req,res,next)=>
+{
+    console.log("yes");
+    const statusCode=err.statusCode||500;
+    const message=err.message||"internal server error";
+   return res.json(
+        {
+            success:false,
+            message,
+            statusCode
+        }
+    )
+
+})
+
 
 app.listen(port,(err)=>{
 
