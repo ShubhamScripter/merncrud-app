@@ -4,13 +4,12 @@ import { errorHandler } from '../utills/error.js';
 
 export const signup=async(req,res,next)=>{
     try{
-
-    
     const {username,email,password}=req.body;
     const hashPassword = await bcrypt.hash(password, 10);
     const newuser=new User({username,email,password:hashPassword});
     await newuser.save();
-    res.status(201).send({message:"user created succesfully"});
+    res.status(201).send({message:"user created succesfully",success:true,newuser});
+    
     }
     catch(err)
     {
